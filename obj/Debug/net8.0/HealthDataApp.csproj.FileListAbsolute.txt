@@ -437,3 +437,4 @@ C:\Users\SolNet\HealthDataApp\obj\Debug\net8.0\refint\HealthDataApp.dll
 C:\Users\SolNet\HealthDataApp\obj\Debug\net8.0\HealthDataApp.pdb
 C:\Users\SolNet\HealthDataApp\obj\Debug\net8.0\HealthDataApp.genruntimeconfig.cache
 C:\Users\SolNet\HealthDataApp\obj\Debug\net8.0\ref\HealthDataApp.dll
+C:\Users\SolNet\HealthDataApp\obj\Debug\net8.0\HealthDataApp.sourcelink.json

@@ -13,25 +13,50 @@ namespace HealthDataApp.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            try 
+            {
+                var records = await _context.HealthDataRecords.ToListAsync();
+                return View(records);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error loading data: " + ex.Message;
+                return View(new List<HealthData>());
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Submit(string city, DateTime recordDate, string diseaseType)
+        public async Task<IActionResult> Submit(HealthData model)
         {
-            var record = new HealthData
+            if (!ModelState.IsValid)
             {
-                City = city,
-                RecordDate = recordDate,
-                DiseaseType = diseaseType
-            };
+                return View("Index", model);
+            }
 
-            _context.HealthDataRecords.Add(record);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.HealthDataRecords.Add(model);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Data saved successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException dbEx)
+            {
+                ModelState.AddModelError("", "Database error: " + dbEx.InnerException?.Message);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error: " + ex.Message);
+            }
 
-            return RedirectToAction("Index");
+            return View("Index", model);
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }

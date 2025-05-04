@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("1e09a20c-44d7-49cb-b74b-d1dc489cfc80")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("HealthDataApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+844ca1969febdfeacd2ef07a1a426df245f166f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("HealthDataApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HealthDataApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
