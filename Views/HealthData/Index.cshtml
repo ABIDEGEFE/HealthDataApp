@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Health Data Submission";
+    Layout = "_Layout";  <!-- Only critical addition -->
+}
+
+<div class="container mt-5">
+    <h1>Health Data Reporting</h1>
+    
+    <form method="post" asp-action="Submit" class="mt-4">
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" class="form-control" id="city" name="city" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="recordDate">Date:</label>
+            <input type="date" class="form-control" id="recordDate" name="recordDate" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="diseaseType">Disease Type:</label>
+            <select class="form-control" id="diseaseType" name="diseaseType" required>
+                <option value="">-- Select --</option>
+                <option value="COVID-19">COVID-19</option>
+                <option value="Influenza">Influenza</option>
+                <option value="Malaria">Malaria</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-3">Submit Report</button>
+    </form>
+</div>
