@@ -9,11 +9,16 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  DOTNET_ROOT: ${{ github.workspace }}/.dotnet
+  AZURE_WEBAPP_NAME: 'healthApp665506'
+  AZURE_WEBAPP_SLOT: 'Production'
+
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -38,12 +43,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    environment:
+    environment: 
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write  # Required for OIDC
+      contents: read
 
     steps:
       - name: Download artifact from build job
@@ -51,18 +57,18 @@ jobs:
         with:
           name: .net-app
       
-      - name: Login to Azure
+      - name: Login to Azure via OIDC
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7204577DA5DE4B3AA1E8182553989DE2 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9FBB4FEBB39F4D44934E96AE2188D408 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_BA809C6A24F2454DAEA817E8EF2702A4 }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}  # Update with your secret name
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}  # Update with your secret name
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  # Update with your secret name
+          enable-AzPSSession: true
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'healthApp665506'
-          slot-name: 'Production'
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: ${{ env.AZURE_WEBAPP_SLOT }}
           package: .
-          
