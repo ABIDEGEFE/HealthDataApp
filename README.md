@@ -20,7 +20,7 @@ This project demonstrates how to deploy a .NET web application using **Azure App
 
 This project utilizes **GitHub Actions** to automate the deployment process. After the application is developed (with the assistance of DeepSeek AI), it is committed to GitHub for continuous delivery.
 
-➡️ [View Repository](https://github.com/your-repo-link)
+➡️ [View Repository](https://github.com/ABIDEGEFE/HealthDataApp.git)
 
 You can fork the repository and deploy it locally or in your own Azure cloud environment.
 
